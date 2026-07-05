@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Honeymoon · 유진♥︎재홍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css" rel="stylesheet">
+<!-- ▼ SD그레타산스: 산돌구름 웹폰트 embed 코드를 이 아래에 붙여넣으세요.
+     붙여넣은 뒤 :root의 'Greta Sans Std'를 발급 코드의 font-family 이름으로 교체 -->
+
+<style>
+:root{
+  --frame:#92BCF5;          /* cornflower blue — 페이지 프레임 */
+  --paper:#FFFFFF;
+  --ink:#141414;
+  --sub:#5A5A5A;
+  --line:#141414;           /* 1px 블랙 헤어라인 */
+  --yellow:#FAF7B0;         /* icy yellow — 라스베가스 */
+  --blue:#A9CBF8;           /* light blue — 오아후 */
+  --peach:#F8C89B;          /* 옅은 주황 — 마우이 */
+  --orange:#E8794F;         /* 진한 주황 — 강조 */
+  --font-disp:'Poppins','Greta Sans Std','SUIT Variable',sans-serif;
+  --font-body:'Greta Sans Std','SUIT Variable','Pretendard','Apple SD Gothic Neo',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{background:var(--frame);font-family:var(--font-body);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;padding:clamp(12px,3vw,40px)}
+a{color:inherit;text-decoration:none}
+.sheet{max-width:1040px;margin:0 auto;background:var(--paper);border-radius:4px;overflow:clip}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line)}
+.topbar-in{display:flex;align-items:center;gap:16px;padding:16px clamp(20px,5vw,56px)}
+.route{font-family:var(--font-disp);font-weight:500;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.route b{font-weight:600;color:var(--orange)}
+.nav{margin-left:auto;display:flex;gap:4px;overflow-x:auto}
+.nav a{font-size:13px;padding:5px 13px;border:1px solid transparent;border-radius:99px;white-space:nowrap;color:var(--sub);transition:.15s}
+.nav a:hover,.nav a:focus-visible{border-color:var(--line);color:var(--ink)}
+
+.wrap{padding:clamp(28px,5vw,64px) clamp(20px,5vw,56px) 90px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:12px 0 8px}
+.hero h1{font-family:var(--font-disp);font-weight:500;font-size:clamp(52px,10vw,104px);line-height:1.02;letter-spacing:-.02em}
+.hero .sub{margin-top:14px;font-size:15px;color:var(--sub);max-width:560px}
+.hero .meta{margin-top:6px;font-family:var(--font-disp);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.hero .meta .heart{color:var(--orange)}
+.sticker{position:absolute;top:-6px;right:0;width:96px;height:96px;border-radius:50%;background:var(--peach);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(12deg);font-family:var(--font-disp);text-align:center}
+.sticker .big{font-weight:600;font-size:22px;line-height:1}
+.sticker .sm{font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:3px}
+@media(max-width:640px){.sticker{width:76px;height:76px;top:auto;bottom:100%;margin-bottom:-30px}.sticker .big{font-size:17px}}
+
+/* ---------- now bar ---------- */
+.now{margin-top:34px;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap}
+.now .tag{background:var(--orange);color:#fff;font-family:var(--font-disp);font-weight:600;font-size:12px;letter-spacing:.16em;padding:14px 20px;display:flex;align-items:center}
+.now .txt{padding:12px 20px;flex:1;min-width:240px}
+.now .txt b{display:block;font-size:15.5px}
+.now .txt span{font-size:13px;color:var(--sub)}
+
+/* ---------- sections ---------- */
+section{margin-top:72px}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:20px}
+.sec-head h2{font-family:var(--font-disp);font-weight:500;font-size:clamp(30px,4.6vw,44px);letter-spacing:-.01em}
+.sec-head .ko{font-size:13px;color:var(--sub)}
+
+/* ---------- one-line gradient timeline (signature) ---------- */
+.gantt-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+.gantt{min-width:720px;display:grid}
+.g-cell{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:9px 4px;text-align:center;font-family:var(--font-disp);font-size:11px;font-weight:500;letter-spacing:.04em}
+.g-cell.last{border-right:none}
+.g-cell.today{background:var(--ink);color:#fff}
+.g-cell .fly{display:block;font-size:10px}
+.g-strip{grid-column:1/-1;position:relative;height:64px}
+.g-strip .seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;letter-spacing:.04em}
+.g-strip .seg span{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:99px;padding:2px 12px;backdrop-filter:blur(2px)}
+.gantt-note{margin-top:10px;font-size:12.5px;color:var(--sub)}
+
+/* ---------- day cards ---------- */
+.day{border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;background:var(--paper)}
+.day-head{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;user-select:none}
+.day-head:hover{background:#FAFAF6}
+.day-num{font-family:var(--font-disp);font-weight:600;font-size:11px;letter-spacing:.14em;color:var(--sub);width:34px}
+.day-date{font-family:var(--font-disp);font-weight:600;font-size:16px;min-width:92px}
+.day-date small{color:var(--sub);font-weight:400}
+.chip{font-size:11.5px;font-weight:600;padding:3px 11px;border-radius:99px;border:1px solid var(--line)}
+.chip.y{background:var(--yellow)}.chip.b{background:var(--blue)}.chip.p{background:var(--peach)}
+.chip.f{background:var(--ink);color:#fff;border-color:var(--ink)}
+.day-title{font-size:14px;color:var(--sub);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.caret{font-size:11px;transition:transform .2s;color:var(--sub)}
+.day.open .caret{transform:rotate(180deg)}
+.day-body{display:none;border-top:1px solid var(--line)}
+.day.open .day-body{display:block}
+.day-body li{list-style:none;display:flex;gap:16px;padding:11px 20px 11px 68px;font-size:14.5px;border-bottom:1px solid rgba(20,20,20,.14)}
+.day-body li:last-child{border-bottom:none}
+.day-body .t{font-family:var(--font-disp);font-weight:600;font-size:12px;letter-spacing:.08em;color:var(--orange);min-width:48px;padding-top:2px}
+.day-body .note{display:block;font-size:12.5px;color:var(--sub)}
+.day-body .hl{background:linear-gradient(180deg, transparent 42%, rgba(232,121,79,.45) 42%, rgba(232,121,79,.45) 94%, transparent 94%);font-weight:700;padding:0 3px;border-radius:2px}
+@media(max-width:640px){.day-title{display:none}.day-body li{padding-left:20px}}
+
+/* ---------- reservations ---------- */
+.res-group{margin-bottom:34px}
+.res-group h3{font-family:var(--font-disp);font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--sub);margin-bottom:12px}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.res{border-radius:16px;padding:18px 18px 14px;position:relative}
+.res.y{background:var(--yellow)}.res.b{background:var(--blue)}.res.p{background:var(--peach)}
+.res-top{display:flex;justify-content:space-between;font-family:var(--font-disp);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:6px}
+.res .name{font-weight:700;font-size:16.5px;padding:9px 0;border-bottom:1px solid var(--line)}
+.res .detail{font-size:13px;padding:9px 0 12px;white-space:pre-line;min-height:64px}
+.res .code-row{background:var(--paper);border:1px solid var(--line);border-radius:8px;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;font-size:12.5px}
+.res .code-row b{font-family:var(--font-disp);font-weight:600;font-size:14px}
+.res .code-row .empty{color:var(--sub)}
+.res .doc{display:inline-block;margin-top:9px;font-size:12px;font-weight:600;border:1px solid var(--line);border-radius:99px;padding:3px 12px;background:var(--paper)}
+.res .doc:hover{background:var(--ink);color:#fff}
+.badge{position:absolute;top:-10px;right:14px;font-family:var(--font-disp);font-size:10px;font-weight:600;letter-spacing:.1em;padding:4px 12px;border-radius:99px;border:1px solid var(--line);background:var(--paper);transform:rotate(3deg)}
+.badge.done{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+/* ---------- maps ---------- */
+.map-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:14px}
+.map-head{display:flex;align-items:center;gap:10px;padding:12px 18px;font-weight:700;font-size:15px;border-bottom:1px solid var(--line)}
+.map-head .sw{width:12px;height:12px;border-radius:3px;border:1px solid var(--line)}
+.sw.y{background:var(--yellow)}.sw.b{background:var(--blue)}.sw.p{background:var(--peach)}
+.map-card iframe{width:100%;height:300px;border:0;display:block}
+.map-hint{font-size:13px;color:var(--sub);margin-top:8px}
+
+/* ---------- checklist ---------- */
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.check-col{border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.check-col h3{font-family:var(--font-disp);font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sub);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:6px}
+.check-col label{display:flex;gap:11px;align-items:flex-start;padding:8px 0;font-size:14px;cursor:pointer;border-bottom:1px solid rgba(20,20,20,.14)}
+.check-col label:last-child{border-bottom:none}
+.check-col input{appearance:none;width:16px;height:16px;border:1px solid var(--line);border-radius:4px;margin-top:3px;flex-shrink:0;cursor:pointer;position:relative}
+.check-col input:checked{background:var(--orange);border-color:var(--orange)}
+.check-col input:checked::after{content:'✓';color:#fff;font-size:11px;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.check-col input:checked+span{color:var(--sub);text-decoration:line-through}
+
+.footnote{margin-top:70px;text-align:center;font-size:12.5px;color:var(--sub)}
+.footnote b{color:var(--orange)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="route">Honeymoon <b>ICN → LAS → OGG → HNL</b></div>
+    <nav class="nav">
+      <a href="#itinerary">일정</a>
+      <a href="#reservations">예약</a>
+      <a href="#maps">지도</a>
+      <a href="#checklist">체크리스트</a>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="sticker" id="sticker"><span class="big" id="dday">D-—</span><span class="sm">to takeoff</span></div>
+    <h1>Honeymoon</h1>
+    <div class="meta">Oct 25 — Nov 06 · 유진 <span class="heart">♥︎</span> 재홍</div>
+    <p class="sub">라스베가스 3박 · 마우이 4박 · 오아후 4박, 13일간의 신혼여행 플랜.</p>
+  </div>
+
+  <div class="now">
+    <div class="tag">NOW</div>
+    <div class="txt"><b id="now-main"></b><span id="now-sub"></span></div>
+  </div>
+
+  <section id="timeline">
+    <div class="sec-head"><h2>Timeline</h2><span class="ko">도시명을 누르면 해당 일정으로 이동 · 그라데이션 = 이동일</span></div>
+    <div class="gantt-scroll"><div class="gantt" id="gantt"></div></div>
+    <p class="gantt-note">✈ 표시는 이동일 · 여행 중엔 <b style="color:var(--orange)">오늘 날짜 칸이 검정</b>으로 표시돼요</p>
+  </section>
+
+  <section id="itinerary">
+    <div class="sec-head"><h2>Itinerary</h2><span class="ko">날짜를 누르면 상세가 열려요</span></div>
+    <div id="days"></div>
+  </section>
+
+  <section id="reservations">
+    <div class="sec-head"><h2>Reservations</h2><span class="ko">확정되면 DATA에서 status·예약번호·doc 링크 수정</span></div>
+    <div id="res"></div>
+  </section>
+
+  <section id="maps">
+    <div class="sec-head"><h2>Maps</h2><span class="ko">동선 지도</span></div>
+    <div id="maps-box"></div>
+    <p class="map-hint">Google My Maps로 스팟 지도를 만들면 공유 → 웹사이트에 삽입 코드로 iframe을 교체하세요.</p>
+  </section>
+
+  <section id="checklist">
+    <div class="sec-head"><h2>Checklist</h2><span class="ko">체크 상태는 저장되지 않아요 — 완료 항목은 파일에서 checked 처리</span></div>
+    <div class="check-grid" id="checks"></div>
+  </section>
+
+  <div class="footnote">파일 상단 <b>DATA</b> 객체만 수정하면 모든 내용이 갱신됩니다 · 유진 <b>♥︎</b> 재홍</div>
+
+</div>
+</div>
+
+<script>
+/* ================================================================
+   ✏️ 여기(DATA)만 수정하면 됩니다
+   - 예약 카드에 doc:"docs/파일명.pdf" 를 넣으면 📎 예약서 버튼이 생겨요
+     (GitHub 레포에 docs 폴더를 만들어 PDF/이미지를 넣고 경로를 적으면 됨)
+   - 일정 항목에 hl:true 를 붙이면 형광펜 강조 표시가 돼요
+     예) {t:"새벽", x:"할레아칼라 일출", hl:true, n:"메모"}
+   ================================================================ */
+const DATA = {
+  tripStart: "2026-10-25",
+  tripEnd:   "2026-11-06",
+
+  /* city: vegas | maui | oahu / fly: true면 ✈ 이동일 */
+  days: [
+    { d:"10/25", w:"일", city:"vegas", fly:true,  title:"인천 출발 → 라스베가스 도착 (직항)",
+      plan:[
+        {t:"18:00", x:"인천공항 T2 도착 — 출발 3시간 전", n:"체크인 · 수하물 위탁 · 출국심사"},
+        {t:"21:00", x:"KE005 인천 T2 출발 (B777-300ER)", hl:true, n:"직항 11시간 10분 — 날짜변경선 통과"},
+        {t:"16:10", x:"라스베가스 해리 리드 T3 도착 (현지 같은 날)"},
+        {t:"저녁",  x:"호텔 체크인 · 스트립 야경 · 벨라지오 분수쇼", n:"직항이라 저녁이 온전히 남아요 — 시차 적응 겸 가볍게"},
+      ]},
+    { d:"10/26", w:"월", city:"vegas", title:"그랜드캐니언 데이투어",
+      plan:[
+        {t:"종일",  x:"그랜드캐니언 (또는 앤텔로프캐니언 + 홀슈밴드)", n:"투어 예약 필요 — 예약 섹션 참고"},
+        {t:"저녁",  x:"스트립 디너"},
+      ]},
+    { d:"10/27", w:"화", city:"vegas", title:"베가스 시내 · 쇼 관람",
+      plan:[
+        {t:"낮",    x:"프리몬트 스트리트 · 쇼핑 (프리미엄 아울렛)"},
+        {t:"저녁",  x:"공연 관람", n:"O쇼 / KA 등 — 예매 필요"},
+      ]},
+    { d:"10/28", w:"수", city:"maui", fly:true, title:"LAS → 마우이 이동",
+      plan:[
+        {t:"07:20", x:"해리 리드 공항 도착 — 출발 2시간 전", n:"LAS는 아침에도 보안검색 줄이 긴 편 — 호텔에서 6:40 출발 권장"},
+        {t:"09:20", x:"LAS 출발 → 12:40 카훌루이 OGG 도착", hl:true, n:"직항 6시간 20분 (시차 −3h) · 예약번호 A8FE7I"},
+        {t:"오후",  x:"렌터카 픽업 · 카아나팔리 체크인", n:"마우이는 렌터카 필수"},
+        {t:"저녁",  x:"카아나팔리 비치 선셋", n:"첫날은 무리하지 않기"},
+      ]},
+    { d:"10/29", w:"목", city:"maui", title:"할레아칼라 일출",
+      plan:[
+        {t:"새벽",  x:"할레아칼라 국립공원 일출 (3시경 출발)", hl:true, n:"일출 입장 사전예약 필수 (recreation.gov, 60일 전 = 8/30 오픈)"},
+        {t:"오전",  x:"업컨트리 — 쿨라 · 라벤더팜"},
+        {t:"오후",  x:"낮잠 + 호텔 풀 휴식"},
+      ]},
+    { d:"10/30", w:"금", city:"maui", title:"로드 투 하나",
+      plan:[
+        {t:"종일",  x:"Road to Hana 드라이브", n:"왕복 종일 코스 — 아침 일찍 출발, 주유 필수"},
+        {t:"스팟",  x:"트윈폭포 · 와이아나파나파 블랙샌드비치(예약 필요) · 하나 타운"},
+      ]},
+    { d:"10/31", w:"토", city:"maui", title:"몰로키니 · 비치 휴식",
+      plan:[
+        {t:"오전",  x:"몰로키니 스노클링 (옵션) or 카아나팔리 비치"},
+        {t:"오후",  x:"웨일러스 빌리지 쇼핑 · 호텔 휴식"},
+        {t:"저녁",  x:"짐 정리 — 내일 오아후 이동"},
+      ]},
+    { d:"11/01", w:"일", city:"oahu", fly:true, title:"마우이 → 오아후 이동",
+      plan:[
+        {t:"11:20", x:"렌터카 반납 (OGG)", n:"반납장 → 터미널 이동 시간 감안"},
+        {t:"11:50", x:"카훌루이 공항 도착 — 출발 2시간 전"},
+        {t:"13:50", x:"OGG 출발 → 14:40 호놀룰루 HNL 도착", hl:true, n:"주내선 50분 · 예약번호 A8FE7I"},
+        {t:"오후",  x:"와이키키 숙소 체크인"},
+        {t:"저녁",  x:"와이키키 비치 선셋 · 듀크 동상"},
+      ]},
+    { d:"11/02", w:"월", city:"oahu", title:"다이아몬드헤드 · 와이키키",
+      plan:[
+        {t:"새벽",  x:"다이아몬드헤드 일출 하이킹", hl:true, n:"입장 사전예약 필수 (gostateparks.hawaii.gov)"},
+        {t:"낮",    x:"카카아코 벽화거리 · 알라모아나"},
+        {t:"저녁",  x:"와이키키 디너"},
+      ]},
+    { d:"11/03", w:"화", city:"oahu", title:"노스쇼어 · 쿠알로아랜치",
+      plan:[
+        {t:"오전",  x:"쿠알로아랜치 (영화 촬영지 투어 / UTV)", n:"사전예약 필수"},
+        {t:"낮",    x:"할레이바 타운 · 새우트럭(지오반니) · 마츠모토 쉐이브아이스"},
+        {t:"오후",  x:"선셋비치 or 카일루아 비치"},
+      ]},
+    { d:"11/04", w:"수", city:"oahu", title:"카일루아 · 기념 디너",
+      plan:[
+        {t:"오전",  x:"카일루아 · 라니카이 비치 (오아후에서 가장 예쁜 바다)"},
+        {t:"오후",  x:"알라모아나 마지막 쇼핑"},
+        {t:"저녁",  x:"신혼여행 기념 디너", n:"마지막 밤 — 오션뷰 레스토랑 추천 (하우스 위드아웃 어 키 등)"},
+      ]},
+    { d:"11/05", w:"목", city:"oahu", fly:true, title:"HNL 출발 (12:05)",
+      plan:[
+        {t:"08:00", x:"체크아웃 · 공항 이동"},
+        {t:"09:05", x:"호놀룰루 공항 도착 — 출발 3시간 전", n:"국제선 체크인 · 수하물 위탁"},
+        {t:"12:05", x:"KE054 호놀룰루 T2 출발 (B787-10)", hl:true, n:"10시간 30분 — 날짜변경선 통과, +1일"},
+      ]},
+    { d:"11/06", w:"금", city:"oahu", fly:true, title:"인천 도착 (17:35)",
+      plan:[
+        {t:"17:35", x:"KE054 인천 T2 도착 · 귀가", n:"주말까지 이틀 쉬고 복귀 — 완벽한 스케줄"},
+      ]},
+  ],
+
+  /* status: todo(미정) | wait(대기) | done(확정) / doc: 예약서 파일 경로(옵션) */
+  reservations: {
+    "Flights ✈ 항공": [
+      { name:"인천 → 라스베가스", detail:"10/25(일) KE005 · 직항 11h 10m\n21:00 ICN T2 → 16:10 LAS T3\nB777-300ER · 일반석(U) · 유진 ♥︎ 재홍", code:"", status:"done", doc:"" },
+      { name:"라스베가스 → 마우이(OGG)", detail:"10/28(수) · 직항 6h 20m\n09:20 LAS → 12:40 OGG\n유진 ♥︎ 재홍", code:"A8FE7I", status:"done", doc:"" },
+      { name:"마우이 → 호놀룰루", detail:"11/01(일) · 주내선 50분\n13:50 OGG → 14:40 HNL\n유진 ♥︎ 재홍", code:"A8FE7I", status:"done", doc:"" },
+      { name:"호놀룰루 → 인천", detail:"11/05(목) KE054 · 직항 10h 30m\n12:05 HNL T2 → 17:35(+1일) ICN T2\nB787-10 · 일반석(Q) · 유진 ♥︎ 재홍", code:"", status:"done", doc:"" },
+    ],
+    "Stays 🏨 숙소": [
+      { name:"라스베가스 (3박)", detail:"10/25–10/28\n스트립 중심부 추천 (벨라지오·코스모폴리탄·베네시안)", code:"", status:"todo", doc:"" },
+      { name:"마우이 · 카아나팔리 (4박)", detail:"10/28–11/01\n(하얏트리젠시·웨스틴·쉐라톤 마우이)", code:"", status:"todo", doc:"" },
+      { name:"오아후 · 와이키키 (4박)", detail:"11/01–11/05\n오션뷰 추천 (할레쿨라니·모아나서프라이더·쉐라톤)", code:"", status:"todo", doc:"" },
+    ],
+    "Car &amp; Tours 🚗 렌터카 · 투어": [
+      { name:"그랜드캐니언 데이투어", detail:"10/26 · 라스베가스 출발", code:"", status:"todo", doc:"" },
+      { name:"베가스 공연 예매", detail:"10/27 저녁", code:"", status:"todo", doc:"" },
+      { name:"마우이 렌터카 (필수)", detail:"10/28–11/01 · OGG 픽업/반납", code:"", status:"todo", doc:"" },
+      { name:"할레아칼라 일출 입장권", detail:"10/29 · recreation.gov · 60일 전(8/30) 오픈", code:"", status:"todo", doc:"" },
+      { name:"몰로키니 스노클링 투어", detail:"10/31 오전 (옵션)", code:"", status:"todo", doc:"" },
+      { name:"쿠알로아랜치 액티비티", detail:"11/03 오전", code:"", status:"todo", doc:"" },
+      { name:"오아후 렌터카 or 투어", detail:"11/03 노스쇼어·쿠알로아용", code:"", status:"todo", doc:"" },
+    ],
+  },
+
+  maps: [
+    { name:"라스베가스", cls:"y", q:"Las Vegas Strip" },
+    { name:"마우이", cls:"p", q:"Kaanapali Beach Maui" },
+    { name:"오아후", cls:"b", q:"Waikiki Beach Oahu" },
+  ],
+
+  checklist: {
+    "Docs 서류 · 필수": [
+      "ESTA 신청 (2인)", "여권 유효기간 6개월+ 확인", "여행자보험 가입",
+      "국제운전면허증 발급 (마우이 렌터카)", "항공권 e티켓 저장 — 전 구간 예매 완료 ✓ (KE005·KE054·A8FE7I)", "숙소 바우처 저장",
+    ],
+    "Money 돈 · 통신": [
+      "트래블카드 준비 (트래블월렛/로그)", "달러 현금 소액 환전 (팁용)",
+      "eSIM or 로밍 신청", "해외결제 카드 한도 확인",
+    ],
+    "Pack 짐 · 기타": [
+      "수영복 · 래시가드", "새벽 일출용 겉옷 (할레아칼라 0~5℃)",
+      "리프세이프 선크림 (하와이는 일반 선크림 규제)", "110V 어댑터",
+      "드레스코드 옷 1벌 (베가스 쇼·디너)", "멀미약 (로드 투 하나 커브길)",
+    ],
+  },
+};
+
+/* ================================================================
+   렌더링 로직 (수정 불필요)
+   ================================================================ */
+const $ = s => document.querySelector(s);
+const cityCls = {vegas:"y", maui:"p", oahu:"b"};
+const cityName = {vegas:"라스베가스", maui:"마우이", oahu:"오아후"};
+const cityColor = {y:"#FAF7B0", p:"#F8C89B", b:"#A9CBF8"};
+
+/* D-day + NOW */
+let todayIdx = -1;
+(function(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  const start = new Date(DATA.tripStart+"T00:00:00");
+  const end = new Date(DATA.tripEnd+"T00:00:00");
+  const diff = Math.round((start - today)/864e5);
+  let label, small="to takeoff", main, sub;
+  if (diff > 0){
+    label = "D-" + diff;
+    main = "출발까지 " + diff + "일 남았어요";
+    sub = "미정 예약부터 하나씩 확정하기 — 할레아칼라 일출 예약은 8/30 오픈!";
+  } else if (today <= end){
+    todayIdx = Math.round((today - start)/864e5);
+    label = "DAY " + (todayIdx+1); small = "enjoy!";
+    const d = DATA.days[todayIdx];
+    main = d ? `오늘: ${d.title}` : "여행 중";
+    sub = d ? `${d.d} (${d.w}) · ${cityName[d.city]}` : "";
+  } else {
+    label = "DONE"; small = "aloha!";
+    main = "신혼여행 완료 🌺";
+    sub = "고생 많았어요 — 사진 정리할 시간!";
+  }
+  $("#dday").textContent = label;
+  $("#sticker").querySelector(".sm").textContent = small;
+  $("#now-main").textContent = main;
+  $("#now-sub").textContent = sub;
+})();
+
+/* 한 줄 그라데이션 타임라인 */
+(function(){
+  const n = DATA.days.length;
+  const gantt = $("#gantt");
+  gantt.style.gridTemplateColumns = `repeat(${n},1fr)`;
+
+  /* 날짜 헤더 */
+  let html = DATA.days.map((d,i)=>
+    `<div class="g-cell${i===n-1?' last':''}${i===todayIdx?' today':''}">${d.d.slice(3)}<span style="display:block;font-size:9px;color:${i===todayIdx?'#ccc':'var(--sub)'}">${d.w}</span>${d.fly?'<span class="fly">✈</span>':''}</div>`
+  ).join("");
+
+  /* 도시 블록 계산 */
+  const blocks = [];
+  DATA.days.forEach((d,i)=>{
+    const last = blocks[blocks.length-1];
+    if (last && last.city===d.city) last.end = i+1;
+    else blocks.push({city:d.city, start:i+1, end:i+1});
+  });
+
+  /* 그라데이션 스탑: 이동일(다음 블록 첫날) 폭에서 색 전환 */
+  const pct = v => (v/n*100).toFixed(2);
+  const stops = [];
+  blocks.forEach((c,bi)=>{
+    const col = cityColor[cityCls[c.city]];
+    if (bi===0) stops.push(`${col} 0%`);
+    else {
+      const prev = cityColor[cityCls[blocks[bi-1].city]];
+      stops.push(`${prev} ${pct(c.start-1)}%`, `${col} ${pct(c.start)}%`);
+    }
+    if (bi===blocks.length-1) stops.push(`${col} 100%`);
+  });
+
+  /* 한 줄 스트립 + 도시 라벨 */
+  const segs = blocks.map(c=>{
+    const left = pct(c.start-1), width = pct(c.end-c.start+1);
+    return `<a class="seg" href="#day-${c.start-1}" style="left:${left}%;width:${width}%"><span>${cityName[c.city]} · ${c.end-c.start+1}일</span></a>`;
+  }).join("");
+  html += `<div class="g-strip" style="background:linear-gradient(90deg, ${stops.join(", ")})">${segs}</div>`;
+
+  gantt.innerHTML = html;
+})();
+
+/* 일정 카드 */
+$("#days").innerHTML = DATA.days.map((d,i)=>`
+  <div class="day" id="day-${i}">
+    <div class="day-head" onclick="this.parentElement.classList.toggle('open')">
+      <span class="day-num">D${String(i+1).padStart(2,'0')}</span>
+      <span class="day-date">${d.d} <small>${d.w}</small></span>
+      <span class="chip ${cityCls[d.city]}">${cityName[d.city]}</span>
+      ${d.fly?'<span class="chip f">✈ 이동</span>':''}
+      <span class="day-title">${d.title}</span>
+      <span class="caret">▾</span>
+    </div>
+    <ul class="day-body">
+      ${d.plan.map(p=>`<li><span class="t">${p.t}</span><span>${p.hl?`<span class="hl">${p.x}</span>`:p.x}${p.n?`<span class="note">${p.n}</span>`:''}</span></li>`).join("")}
+    </ul>
+  </div>`).join("");
+document.querySelector(".day")?.classList.add("open");
+
+/* 예약 카드 */
+const badge = {todo:["","미정"], wait:["","대기중"], done:["done","확정 ✓"]};
+const groupCls = ["y","p","b"];
+$("#res").innerHTML = Object.entries(DATA.reservations).map(([g,items],gi)=>`
+  <div class="res-group">
+    <h3>${g}</h3>
+    <div class="res-grid">
+      ${items.map((r,ri)=>`
+        <div class="res ${groupCls[gi%3]}">
+          <span class="badge ${badge[r.status][0]}">${badge[r.status][1]}</span>
+          <div class="res-top"><span>No.${String(ri+1).padStart(2,'0')}</span><span>Booking</span></div>
+          <div class="name">${r.name}</div>
+          <div class="detail">${r.detail}</div>
+          <div class="code-row"><span>예약번호</span>${r.code?`<b>${r.code}</b>`:`<span class="empty">—</span>`}</div>
+          ${r.doc?`<a class="doc" href="${r.doc}" target="_blank">📎 예약서 보기</a>`:''}
+        </div>`).join("")}
+    </div>
+  </div>`).join("");
+
+/* 지도 */
+$("#maps-box").innerHTML = DATA.maps.map(m=>`
+  <div class="map-card">
+    <div class="map-head"><span class="sw ${m.cls}"></span>${m.name}</div>
+    <iframe loading="lazy" src="https://maps.google.com/maps?q=${encodeURIComponent(m.q)}&z=11&output=embed" title="${m.name} 지도"></iframe>
+  </div>`).join("");
+
+/* 체크리스트 */
+$("#checks").innerHTML = Object.entries(DATA.checklist).map(([g,items])=>`
+  <div class="check-col">
+    <h3>${g}</h3>
+    ${items.map(c=>`<label><input type="checkbox"><span>${c}</span></label>`).join("")}
+  </div>`).join("");
+</script>
+</body>
+</html>
