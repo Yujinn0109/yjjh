@@ -77,6 +77,21 @@ section{margin-top:72px}
 .g-strip .seg span{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:99px;padding:2px 12px;backdrop-filter:blur(2px)}
 .gantt-note{margin-top:10px;font-size:12.5px;color:var(--sub)}
 
+/* ---------- booking alert ---------- */
+.alert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.alert{border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.alert-top{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.alert-top .nm{font-weight:700;font-size:16px;flex:1}
+.alert-top .cnt{font-family:var(--font-disp);font-weight:600;font-size:13px;padding:4px 12px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.alert-top .cnt.hot{background:var(--orange);color:#fff;border-color:var(--orange)}
+.alert-top .cnt.open{background:var(--yellow)}
+.alert-body{padding:14px 18px;font-size:13.5px;color:var(--sub);flex:1;white-space:pre-line}
+.alert-body b{color:var(--ink)}
+.alert-go{display:block;text-align:center;font-family:var(--font-disp);font-weight:600;font-size:13.5px;letter-spacing:.06em;padding:13px;background:var(--ink);color:#fff;transition:.15s}
+.alert-go:hover{background:var(--orange)}
+.alert-go.soft{background:var(--paper);color:var(--ink);border-top:1px solid var(--line)}
+.alert-go.soft:hover{background:var(--peach)}
+
 /* ---------- day cards ---------- */
 .day{border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden;background:var(--paper)}
 .day-head{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;user-select:none}
@@ -147,6 +162,7 @@ section{margin-top:72px}
   <div class="topbar-in">
     <div class="route">Honeymoon <b>ICN → LAS → OGG → HNL</b></div>
     <nav class="nav">
+      <a href="#booking-alert">예약알림</a>
       <a href="#itinerary">일정</a>
       <a href="#reservations">예약</a>
       <a href="#maps">지도</a>
@@ -173,6 +189,11 @@ section{margin-top:72px}
     <div class="sec-head"><h2>Timeline</h2><span class="ko">도시명을 누르면 해당 일정으로 이동 · 그라데이션 = 이동일</span></div>
     <div class="gantt-scroll"><div class="gantt" id="gantt"></div></div>
     <p class="gantt-note">✈ 표시는 이동일 · 여행 중엔 <b style="color:var(--orange)">오늘 날짜 칸이 검정</b>으로 표시돼요</p>
+  </section>
+
+  <section id="booking-alert">
+    <div class="sec-head"><h2>Booking Alert</h2><span class="ko">예약 오픈일이 정해진 것들 — 놓치면 못 가요</span></div>
+    <div class="alert-grid" id="alerts"></div>
   </section>
 
   <section id="itinerary">
@@ -225,12 +246,12 @@ const DATA = {
     { d:"10/26", w:"월", city:"vegas", title:"그랜드캐니언 데이투어",
       plan:[
         {t:"종일",  x:"그랜드캐니언 (또는 앤텔로프캐니언 + 홀슈밴드)", n:"투어 예약 필요 — 예약 섹션 참고"},
-        {t:"저녁",  x:"스트립 디너"},
+        {t:"저녁",  x:"고든램지 헬스키친 (시저스팰리스)", hl:true, n:"예약 필수 · 비프 웰링턴 + 스티키 토피 푸딩"},
       ]},
     { d:"10/27", w:"화", city:"vegas", title:"베가스 시내 · 쇼 관람",
       plan:[
         {t:"낮",    x:"프리몬트 스트리트 · 쇼핑 (프리미엄 아울렛)"},
-        {t:"저녁",  x:"공연 관람", n:"O쇼 / KA 등 — 예매 필요"},
+        {t:"저녁",  x:"스피어 공연 관람", hl:true, n:"메탈리카 레지던시 or 오즈의 마법사 — 중앙 상단 좌석 추천"},
       ]},
     { d:"10/28", w:"수", city:"maui", fly:true, title:"LAS → 마우이 이동",
       plan:[
@@ -268,6 +289,7 @@ const DATA = {
       plan:[
         {t:"새벽",  x:"다이아몬드헤드 일출 하이킹", hl:true, n:"입장 사전예약 필수 (gostateparks.hawaii.gov)"},
         {t:"낮",    x:"카카아코 벽화거리 · 알라모아나"},
+        {t:"오후",  x:"크롬하츠 호놀룰루 (예약 시)", hl:true, n:"칼라카우아 애비뉴 · 예약자만 입장 · 11:00–19:00"},
         {t:"저녁",  x:"와이키키 디너"},
       ]},
     { d:"11/03", w:"화", city:"oahu", title:"노스쇼어 · 쿠알로아랜치",
@@ -282,11 +304,11 @@ const DATA = {
         {t:"오후",  x:"알라모아나 마지막 쇼핑"},
         {t:"저녁",  x:"신혼여행 기념 디너", n:"마지막 밤 — 오션뷰 레스토랑 추천 (하우스 위드아웃 어 키 등)"},
       ]},
-    { d:"11/05", w:"목", city:"oahu", fly:true, title:"HNL 출발 (12:05)",
+    { d:"11/05", w:"목", city:"oahu", fly:true, title:"HNL 출발 (11:40)",
       plan:[
         {t:"08:00", x:"체크아웃 · 공항 이동"},
-        {t:"09:05", x:"호놀룰루 공항 도착 — 출발 3시간 전", n:"국제선 체크인 · 수하물 위탁"},
-        {t:"12:05", x:"KE054 호놀룰루 T2 출발 (B787-10)", hl:true, n:"10시간 30분 — 날짜변경선 통과, +1일"},
+        {t:"08:40", x:"호놀룰루 공항 도착 — 출발 3시간 전", n:"국제선 체크인 · 수하물 위탁"},
+        {t:"11:40", x:"KE054 호놀룰루 T2 출발 (B787-10)", hl:true, n:"10시간 55분 — 날짜변경선 통과, +1일"},
       ]},
     { d:"11/06", w:"금", city:"oahu", fly:true, title:"인천 도착 (17:35)",
       plan:[
@@ -298,9 +320,9 @@ const DATA = {
   reservations: {
     "Flights ✈ 항공": [
       { name:"인천 → 라스베가스", detail:"10/25(일) KE005 · 직항 11h 10m\n21:00 ICN T2 → 16:10 LAS T3\nB777-300ER · 일반석(U) · 유진 ♥︎ 재홍", code:"", status:"done", doc:"" },
-      { name:"라스베가스 → 마우이(OGG)", detail:"10/28(수) · 직항 6h 20m\n09:20 LAS → 12:40 OGG\n유진 ♥︎ 재홍", code:"A8FE7I", status:"done", doc:"" },
-      { name:"마우이 → 호놀룰루", detail:"11/01(일) · 주내선 50분\n13:50 OGG → 14:40 HNL\n유진 ♥︎ 재홍", code:"A8FE7I", status:"done", doc:"" },
-      { name:"호놀룰루 → 인천", detail:"11/05(목) KE054 · 직항 10h 30m\n12:05 HNL T2 → 17:35(+1일) ICN T2\nB787-10 · 일반석(Q) · 유진 ♥︎ 재홍", code:"", status:"done", doc:"" },
+      { name:"라스베가스 → 마우이(OGG)", detail:"10/28(수) WN2354 · 직항 6h 20m\n09:20 LAS → 12:40 OGG\n좌석 20E(재홍) · 20F(유진, 창가)", code:"A8FE7I", status:"done", doc:"" },
+      { name:"마우이 → 호놀룰루", detail:"11/01(일) WN3515 · 주내선 50분\n13:50 OGG → 14:40 HNL\n좌석 6E(재홍) · 6F(유진, 창가)", code:"A8FE7I", status:"done", doc:"" },
+      { name:"호놀룰루 → 인천", detail:"11/05(목) KE054 · 직항 10h 55m\n11:40 HNL T2 → 17:35(+1일) ICN T2\nB787-10 · 일반석(Q) · 유진 ♥︎ 재홍", code:"", status:"done", doc:"" },
     ],
     "Stays 🏨 숙소": [
       { name:"라스베가스 (3박)", detail:"10/25–10/28\n스트립 중심부 추천 (벨라지오·코스모폴리탄·베네시안)", code:"", status:"todo", doc:"" },
@@ -309,7 +331,9 @@ const DATA = {
     ],
     "Car &amp; Tours 🚗 렌터카 · 투어": [
       { name:"그랜드캐니언 데이투어", detail:"10/26 · 라스베가스 출발", code:"", status:"todo", doc:"" },
-      { name:"베가스 공연 예매", detail:"10/27 저녁", code:"", status:"todo", doc:"" },
+      { name:"스피어 공연", detail:"10/27 저녁 · 255 Sands Ave\n메탈리카 or 오즈의 마법사", code:"", status:"todo", doc:"" },
+      { name:"고든램지 헬스키친", detail:"10/26 저녁 · 시저스팰리스\nOpenTable 예약", code:"", status:"todo", doc:"" },
+      { name:"크롬하츠 호놀룰루", detail:"11/02 오후 · 2184 Kalakaua Ave\nWaitwhile 예약 · 워크인 불가", code:"", status:"todo", doc:"" },
       { name:"마우이 렌터카 (필수)", detail:"10/28–11/01 · OGG 픽업/반납", code:"", status:"todo", doc:"" },
       { name:"할레아칼라 일출 입장권", detail:"10/29 · recreation.gov · 60일 전(8/30) 오픈", code:"", status:"todo", doc:"" },
       { name:"몰로키니 스노클링 투어", detail:"10/31 오전 (옵션)", code:"", status:"todo", doc:"" },
@@ -317,6 +341,39 @@ const DATA = {
       { name:"오아후 렌터카 or 투어", detail:"11/03 노스쇼어·쿠알로아용", code:"", status:"todo", doc:"" },
     ],
   },
+
+  /* 예약 오픈일 카운트다운 카드
+     openDate: 예약 오픈일(비워두면 "상시 예약") / target: 실제 방문일 */
+  alerts: [
+    { name:"크롬하츠 호놀룰루", openDate:"", target:"2026-11-02",
+      url:"https://waitwhile.com/locations/chromeheartshonolulu/welcome",
+      btn:"Waitwhile 예약하기",
+      body:"2184 Kalakaua Ave · 매일 11:00–19:00\n워크인 불가 — <b>예약자만 입장</b> 가능해요.\nWaitwhile에서 날짜·시간 선택 후 예약.\n자리가 없으면 새로고침 반복 — 취소분이 뜬대요.\n안 되면 전화 +1 808 926 4900\n\n<b>추천일: 11/2(월) 또는 11/4(수) 오후</b> — 와이키키 숙소에서 도보권" },
+    { name:"라스베가스 스피어", openDate:"", target:"2026-10-26",
+      url:"https://www.thesphere.com/shows/calendar",
+      btn:"스피어 공연 일정 보기",
+      body:"255 Sands Ave · 스트립 동쪽\n<b>10/25–27 중 하루 선택</b>\n\n· <b>메탈리카 레지던시</b> — 10/1~2027/3, 총 24회 공연\n· <b>오즈의 마법사</b> — 낮 상영 몰입형 (11:00/14:00/17:00/20:00)\n\n좌석은 중앙 상단이 화면 전체가 보여 제일 좋아요.\n앞줄·측면은 화면이 잘려서 비추." },
+    { name:"고든램지 헬스키친", openDate:"", target:"2026-10-26",
+      url:"https://www.opentable.com/r/hells-kitchen-caesars-palace-las-vegas",
+      btn:"OpenTable 예약",
+      body:"시저스팰리스 앞 · 비프 웰링턴 필수\n<b>몇 주 전부터 마감</b>되는 곳이라 지금 예약 권장.\n\n드레스코드: 비즈니스 캐주얼\n스티키 토피 푸딩까지 꼭 남겨두기\n\n<b>추천: 10/26 or 10/27 저녁</b>" },
+    { name:"베가스 예약 맛집 (선택)", openDate:"", target:"2026-10-27",
+      url:"https://www.opentable.com/las-vegas-restaurants",
+      btn:"OpenTable 베가스",
+      body:"<b>· 이터널스 (Eiffel Tower Restaurant)</b> — 벨라지오 분수 정면 뷰, 창가석 지정 예약\n<b>· 카본 (Carbone)</b> — 아리아, 예약 난이도 최상\n<b>· 바카날 뷔페</b> — 시저스팰리스, 주말은 예약 필수\n<b>· 스시 사이토</b> — 미슐랭 3스타, 오마카세\n<b>· 조엘 로부숑</b> — MGM, 파인다이닝 끝판왕\n\n신혼여행 기념 디너 하나는 잡아두면 좋아요." },
+    { name:"할레아칼라 일출 입장권", openDate:"2026-08-30", target:"2026-10-29",
+      url:"https://www.recreation.gov/ticket/facility/253731",
+      btn:"recreation.gov 열기",
+      body:"방문 60일 전 오전 7시(하와이 시각)에 오픈.\n인기 날짜는 몇 분 만에 마감되니 <b>알람 필수</b>.\n차량 1대당 1건 · 예약증과 신분증 지참." },
+    { name:"다이아몬드헤드 입장 예약", openDate:"", target:"2026-11-02",
+      url:"https://gostateparks.hawaii.gov/diamondhead",
+      btn:"주립공원 예약 사이트",
+      body:"비거주자는 <b>사전 예약 필수</b> (30일 전부터 오픈).\n일출 시간대는 특히 빨리 마감돼요.\n주차까지 예약하려면 차량 옵션 함께 선택." },
+    { name:"쿠알로아랜치 액티비티", openDate:"", target:"2026-11-03",
+      url:"https://www.kualoa.com/",
+      btn:"쿠알로아랜치 예약",
+      body:"영화 촬영지 투어 / UTV / 짚라인 중 택1.\n오전 타임이 덜 덥고 사진도 잘 나와요.\n인기 시즌엔 2~3주 전 마감되기도 해요." },
+  ],
 
   maps: [
     { name:"라스베가스", cls:"y", q:"Las Vegas Strip" },
@@ -332,6 +389,24 @@ const DATA = {
     "Money 돈 · 통신": [
       "트래블카드 준비 (트래블월렛/로그)", "달러 현금 소액 환전 (팁용)",
       "eSIM or 로밍 신청", "해외결제 카드 한도 확인",
+    ],
+    "Vegas 스피어 · 다이닝": [
+      "스피어 공연 날짜 확정 (10/25~27 중)",
+      "메탈리카 vs 오즈의 마법사 결정",
+      "스피어 티켓 예매 — 중앙 상단 좌석 우선",
+      "헬스키친 예약 (OpenTable)",
+      "기념 디너 레스토랑 1곳 예약",
+      "드레스코드 확인 (비즈니스 캐주얼)",
+    ],
+    "Chrome Hearts 크롬하츠": [
+      "공식 사이트에서 Honolulu 예약 오픈 확인",
+      "예약 희망일 확정 (11/2 or 11/4 오후)",
+      "예약 완료 — 확인 메일 저장",
+      "예약자 이름 · 인원수 확인 (동반 1인 가능한지)",
+      "사고 싶은 아이템 리스트업 (하와이 한정판 위주)",
+      "예산 정하기 · 해외결제 한도 확인",
+      "면세 한도 확인 (1인 미화 800불 초과 시 신고)",
+      "매장 사진 촬영 가능 여부 문의",
     ],
     "Pack 짐 · 기타": [
       "수영복 · 래시가드", "새벽 일출용 겉옷 (할레아칼라 0~5℃)",
@@ -418,6 +493,30 @@ let todayIdx = -1;
   html += `<div class="g-strip" style="background:linear-gradient(90deg, ${stops.join(", ")})">${segs}</div>`;
 
   gantt.innerHTML = html;
+})();
+
+/* 부킹 알럿 — 예약 오픈일/방문일 카운트다운 */
+(function(){
+  const today = new Date(); today.setHours(0,0,0,0);
+  $("#alerts").innerHTML = DATA.alerts.map(a=>{
+    let cnt, cls="";
+    if (a.openDate){
+      const open = new Date(a.openDate+"T00:00:00");
+      const d = Math.round((open - today)/864e5);
+      if (d > 0){ cnt = "오픈 D-"+d; cls = d<=7?"hot":""; }
+      else { cnt = "예약 오픈됨"; cls = "open"; }
+    } else {
+      const t = new Date(a.target+"T00:00:00");
+      const d = Math.round((t - today)/864e5);
+      cnt = d>0 ? "방문 D-"+d : (d===0?"오늘!":"완료");
+      cls = (d>0 && d<=14) ? "hot" : "";
+    }
+    return `<div class="alert">
+      <div class="alert-top"><span class="nm">${a.name}</span><span class="cnt ${cls}">${cnt}</span></div>
+      <div class="alert-body">${a.body}</div>
+      <a class="alert-go" href="${a.url}" target="_blank" rel="noopener">${a.btn} →</a>
+    </div>`;
+  }).join("");
 })();
 
 /* 일정 카드 */
