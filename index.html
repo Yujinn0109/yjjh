@@ -77,24 +77,6 @@ section{margin-top:72px}
 .g-strip .seg span{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:99px;padding:2px 12px;backdrop-filter:blur(2px)}
 .gantt-note{margin-top:10px;font-size:12.5px;color:var(--sub)}
 
-/* ---------- calendar (month grid) ---------- */
-.cal-month{margin-bottom:26px}
-.cal-month h3{font-family:var(--font-disp);font-weight:600;font-size:15px;letter-spacing:.05em;margin-bottom:10px}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.cal-dow{text-align:center;font-family:var(--font-disp);font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--sub);padding:9px 0;border-bottom:1px solid var(--line);border-right:1px solid rgba(20,20,20,.14)}
-.cal-dow:nth-child(7n){border-right:none}
-.cal-cell{min-height:78px;padding:7px 8px;border-right:1px solid rgba(20,20,20,.14);border-bottom:1px solid rgba(20,20,20,.14);position:relative}
-.cal-cell:nth-child(7n){border-right:none}
-.cal-cell.empty{background:repeating-linear-gradient(45deg, transparent, transparent 7px, rgba(20,20,20,.035) 7px, rgba(20,20,20,.035) 8px)}
-.cal-cell .num{font-family:var(--font-disp);font-weight:600;font-size:12.5px}
-.cal-cell.trip{cursor:pointer}
-.cal-cell.trip:hover{outline:2px solid var(--ink);outline-offset:-2px;z-index:1}
-.cal-cell.today .num{background:var(--ink);color:#fff;border-radius:50%;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:11px}
-.cal-cell .ttl{margin-top:5px;font-size:10.5px;line-height:1.35;color:var(--ink);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.cal-cell .fly-ic{position:absolute;top:7px;right:8px;font-size:10px}
-.cal-legend{display:flex;gap:18px;margin-top:12px;font-size:12.5px;color:var(--sub);flex-wrap:wrap}
-@media(max-width:640px){.cal-cell{min-height:58px;padding:5px 6px}.cal-cell .ttl{display:none}.cal-cell .num{font-size:11px}}
-
 /* ---------- booking alert ---------- */
 .alert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
 .alert{border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
@@ -160,6 +142,22 @@ section{margin-top:72px}
 .saved-link{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-family:var(--font-disp);font-weight:600;font-size:13.5px;text-decoration:none;color:var(--ink);transition:.15s}
 .saved-link:hover{background:var(--paper);border-color:var(--ink)}
 .saved-link .sw{width:10px;height:10px;border-radius:3px;border:1px solid var(--line);flex:none}
+.cost-group{border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.cost-group h3{font-family:var(--font-disp);font-size:15px;font-weight:700;margin:0 0 6px}
+.cost-row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
+.cost-row:last-child{border-bottom:none}
+.cost-name{flex:1;font-size:13.5px}
+.cost-name .note{display:block;color:var(--sub);font-size:12px;margin-top:3px}
+.cost-amt{font-family:var(--font-disp);font-weight:700;white-space:nowrap;text-align:right;font-size:13.5px}
+.cost-amt.unsure{color:var(--sub);font-weight:600;font-size:12.5px}
+.short-group{margin-bottom:26px}
+.short-group h3{font-family:var(--font-disp);font-weight:700;font-size:15px;margin-bottom:10px}
+.short-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.short-card{border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.short-card .nm{font-family:var(--font-disp);font-weight:700;font-size:14px;margin-bottom:4px}
+.short-card .loc{font-size:12px;color:var(--sub);margin-bottom:8px}
+.short-card .price{display:inline-block;font-family:var(--font-disp);font-weight:600;font-size:11.5px;padding:2px 8px;border:1px solid var(--line);border-radius:999px;margin-bottom:8px}
+.short-card .desc{font-size:12.5px;line-height:1.55;white-space:pre-line}
 
 /* ---------- checklist ---------- */
 .check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
@@ -184,12 +182,13 @@ section{margin-top:72px}
   <div class="topbar-in">
     <div class="route">Honeymoon <b>ICN → LAS → OGG → HNL</b></div>
     <nav class="nav">
-      <a href="#calendar">달력</a>
       <a href="#booking-alert">예약알림</a>
       <a href="#itinerary">일정</a>
       <a href="#reservations">예약</a>
+      <a href="#extra-costs">추가경비</a>
       <a href="#maps">지도</a>
       <a href="#checklist">체크리스트</a>
+      <a href="#shortlists">후보</a>
     </nav>
   </div>
 </div>
@@ -214,11 +213,6 @@ section{margin-top:72px}
     <p class="gantt-note">✈ 표시는 이동일 · 여행 중엔 <b style="color:var(--orange)">오늘 날짜 칸이 검정</b>으로 표시돼요</p>
   </section>
 
-  <section id="calendar">
-    <div class="sec-head"><h2>Calendar</h2><span class="ko">날짜 칸을 누르면 해당 일정이 펼쳐져요</span></div>
-    <div id="calendar-box"></div>
-  </section>
-
   <section id="booking-alert">
     <div class="sec-head"><h2>Booking Alert</h2><span class="ko">예약 오픈일이 정해진 것들 — 놓치면 못 가요</span></div>
     <div class="alert-grid" id="alerts"></div>
@@ -234,6 +228,12 @@ section{margin-top:72px}
     <div id="res"></div>
   </section>
 
+  <section id="extra-costs">
+    <div class="sec-head"><h2>Extra Costs</h2><span class="ko">항공·숙소·입장료 외 현지에서 추가로 들어갈 수 있는 비용</span></div>
+    <div id="costs-box"></div>
+    <p class="map-hint">바우처에 금액이 없거나 변동 가능한 항목은 "확인필요"로 표시했어요 — 실제 결제 시 다를 수 있어요.</p>
+  </section>
+
   <section id="maps">
     <div class="sec-head"><h2>Maps</h2><span class="ko">동선 지도 · 저장한 장소 리스트</span></div>
     <div class="saved-grid" id="saved-maps"></div>
@@ -244,6 +244,11 @@ section{margin-top:72px}
   <section id="checklist">
     <div class="sec-head"><h2>Checklist</h2><span class="ko">체크 상태는 저장되지 않아요 — 완료 항목은 파일에서 checked 처리</span></div>
     <div class="check-grid" id="checks"></div>
+  </section>
+
+  <section id="shortlists">
+    <div class="sec-head"><h2>Shortlists</h2><span class="ko">아직 확정 안 된 후보들 — 골라서 예약/일정에 반영하세요</span></div>
+    <div id="shorts-box"></div>
   </section>
 
   <div class="footnote">파일 상단 <b>DATA</b> 객체만 수정하면 모든 내용이 갱신됩니다 · 유진 <b>♥︎</b> 재홍</div>
@@ -331,11 +336,12 @@ const DATA = {
         {t:"오후",  x:"크롬하츠 호놀룰루 (예약 시)", hl:true, n:"칼라카우아 애비뉴 · 예약자만 입장 · 11:00–19:00"},
         {t:"저녁",  x:"와이키키 디너"},
       ]},
-    { d:"11/03", w:"화", city:"oahu", title:"노스쇼어 · 쿠알로아랜치",
+    { d:"11/03", w:"화", city:"oahu", title:"노스쇼어 · 쿠알로아랜치 승마",
       plan:[
-        {t:"오전",  x:"쿠알로아랜치 — 2시간 승마 투어", hl:true, n:"예약 완료 · 카아아와 밸리를 천천히 도는 경치 코스 · 안전교육 포함 총 2시간"},
-        {t:"낮",    x:"할레이바 타운 · 새우트럭(지오반니) · 마츠모토 쉐이브아이스"},
-        {t:"오후",  x:"선셋비치 or 카일루아 비치"},
+        {t:"오전",  x:"노스쇼어 이동 · 할레이바 타운 · 새우트럭(지오반니) · 마츠모토 쉐이브아이스", n:"점심 겸 들르기 — 쿠알로아랜치까지 다시 30~40분 이동"},
+        {t:"13:45", x:"쿠알로아랜치 티켓오피스 체크인", hl:true, n:"49-560 Kamehameha Hwy, Kaaawa, HI 96730(랜치 정문) · 승마 시작 45분 전까지 필수 · 예약자명과 일치하는 사진 신분증 지참 · 늦으면 환불·일정변경 불가"},
+        {t:"14:30", x:"2시간 승마 투어", hl:true, n:"예약번호 D0G6YNAJ · 2인 · 안전교육 포함 총 2시간, 종료 약 16:30\n주의: 체중 104kg(230lb) 초과 불가(체크인 시 측정) · 신장 137cm 이상 · 만 10세 이상 · 허리 안좋거나 임신 중이면 비추천 · 발가락 막힌 신발 필수, 헬멧은 현장 제공 · 우비 지참(비와도 진행)"},
+        {t:"오후~저녁", x:"쿠알로아 인근에서 여유있게 or 호텔 복귀", n:"카일루아·라니카이는 내일(11/4) 제대로 즐길 예정이라 오늘은 가볍게"},
       ]},
     { d:"11/04", w:"수", city:"oahu", title:"카일루아 · 기념 디너",
       plan:[
@@ -377,7 +383,7 @@ const DATA = {
       { name:"마우이 렌터카 (Alamo)", detail:"지프 랭글러 혹은 동급(FJAR) · 5인승\n픽업 10/28(수) 13:30 — 반납 11/1(일) 11:00\nOGG 렌터카센터(공항 무료 경전철)\n선결제 325,651원 완료 · 무료취소 10/28 12:30 이전\n주운전자: AHN JAEHONG", code:"2140078878COUNT", status:"done", doc:"" },
       { name:"할레아칼라 (일몰)", detail:"10/29 저녁 · 예약 불필요\n일출용이던 recreation.gov 예약은 사실상 마감 — 48h전 추가분(10/27) 시도 가능", code:"", status:"todo", doc:"" },
       { name:"몰로키니 스노클링 or 서핑레슨", detail:"10/31 오전 (옵션) · 서핑은 코브파크(키헤이)", code:"", status:"todo", doc:"" },
-      { name:"쿠알로아랜치 승마투어", detail:"11/03 오전 · 2시간 승마 (카아아와 밸리)", code:"", status:"done", doc:"" },
+      { name:"쿠알로아랜치 승마투어", detail:"11/3(화) 체크인 13:45 · 투어 14:30~16:30\n티켓오피스: 49-560 Kamehameha Hwy, Kaaawa, HI 96730\n2인(유진·재홍) · 예약자명과 일치하는 사진ID 지참 필수\n체중 230lb/104kg 초과 불가(현장 측정) · 신장 137cm↑ · 10세↑\n허리 질환·임신 중이면 비추천 · 닫힌 신발 필수, 헬멧 현장제공, 우비 지참", code:"D0G6YNAJ", status:"done", doc:"" },
       { name:"오아후 렌터카 or 투어", detail:"11/03 노스쇼어·쿠알로아용", code:"", status:"todo", doc:"" },
     ],
   },
@@ -412,7 +418,7 @@ const DATA = {
     { name:"쿠알로아랜치 승마투어", openDate:"", target:"2026-11-03",
       url:"https://www.kualoa.com/",
       btn:"쿠알로아랜치 보기",
-      body:"<b>예약 완료 — 11/3(화) 오전, 2시간 승마 투어</b>\n카아아와 밸리를 걷는 속도로 도는 경치 코스, 안전교육 포함 총 2시간.\n오전 타임이 덜 덥고 사진도 잘 나와요." },
+      body:"<b>예약 완료 — 11/3(화) 투어 14:30 (체크인 13:45까지)</b>\n티켓오피스: 49-560 Kamehameha Hwy, Kaaawa, HI 96730 · 예약번호 D0G6YNAJ\n카아아와 밸리를 걷는 속도로 도는 경치 코스, 안전교육 포함 총 2시간.\n\n<b>체크인 유의사항</b>\n· 시작 45분 전까지 티켓오피스 체크인 필수, 예약자명과 일치하는 사진ID 지참\n· 늦으면 환불·일정변경 불가, 일행 전원이 모여야 탑승 가능\n· 체중 230lb(104kg) 초과 불가(현장 측정) · 신장 137cm 이상 · 만 10세 이상\n· 허리 질환자·임산부는 비추천 · 닫힌 신발 필수(헬멧은 현장 제공) · 우비 지참, 우천시에도 진행" },
   ],
 
   maps: [
@@ -421,6 +427,45 @@ const DATA = {
     { name:"오아후", cls:"b", q:"Waikiki Beach Oahu" },
   ],
 
+  /* 추가 경비 — 항공/숙소 외 현지에서 더 들어갈 수 있는 비용. amt가 빈 문자열이면 "확인필요"로 표시 */
+  extraCosts: {
+    "공통": [
+      { name:"ESTA 2인", note:"현재 1인당 약 $40.62 (예전 $21에서 인상됨) · 아직 신청 전이면 지금 결제", amt:"≈$81 (2인)" },
+      { name:"국제운전면허증 발급 (출국 전, 한국)", note:"도로교통공단 발급 수수료", amt:"8,500원" },
+      { name:"팁 (레스토랑·우버·벨보이 등)", note:"레스토랑 18~22% · 우버/택시 15~20% · 벨보이·포터 $1~2/가방 — 미국 전역 공통 관행", amt:"확인필요(지출액 비례)" },
+      { name:"eSIM or 로밍", note:"13일 미국 데이터 — 통신사·용량별 차이 큼", amt:"확인필요" },
+    ],
+    "항공 · 수하물": [
+      { name:"사우스웨스트 위탁수하물", note:"WN2354·WN3515 각 구간 · 1인당 1개째 $35 / 2개째 $45 (2025년 요금개편 이후 기준) — 운임에 수하물 포함 여부 먼저 확인", amt:"확인필요" },
+    ],
+    "라스베가스": [
+      { name:"리조트피 (벨라지오 3박)", note:"체크인 시 현장결제", amt:"$187.08" },
+      { name:"스피어 티켓", note:"이미 결제 완료", amt:"$368 (결제완료)" },
+      { name:"헬스키친 디너", note:"2인 파인다이닝 — 코스+음료 고려", amt:"확인필요" },
+      { name:"핫앤쥬시 크로피쉬", note:"2인 기준 새우 1~2파운드+사이드", amt:"확인필요" },
+      { name:"쇼핑 세금 (SKIMS·크롬하츠 등)", note:"Clark County 통합세율 — 가격표엔 불포함, 계산대에서 추가", amt:"구매액의 8.375%" },
+      { name:"우버 이동 (크롬하츠 3매장 순회+프리몬트)", note:"윈↔포럼샵↔윈 왕복 + 다운타운 왕복, 하루 4~5회 — 렌터카 없이 전부 우버", amt:"확인필요" },
+    ],
+    "마우이": [
+      { name:"렌터카 선결제분", note:"Alamo — 이미 결제 완료", amt:"325,651원 (결제완료)" },
+      { name:"렌터카 현장 추가요금", note:"유류·주차·위반 등 발생 시만", amt:"확인필요" },
+      { name:"리조트피 (힐튼 마우이베이빌라스 4박)", note:"바우처에 금액 미기재 — 체크인 시 확인", amt:"확인필요" },
+      { name:"할레아칼라 국립공원 입장료", note:"차량 1대 기준 3일권", amt:"$30" },
+      { name:"와이아나파나파 주립공원 (로드투하나)", note:"비거주자 1인당 $5 입장 + 차량 $10 주차 · 사전예약 필수", amt:"$20 (2인+차량 1대)" },
+      { name:"몰로키니 스노클링 or 서핑레슨", note:"옵션 — 둘 중 선택", amt:"확인필요" },
+      { name:"마알라이아 선셋 세일링", note:"옵션", amt:"확인필요" },
+    ],
+    "오아후": [
+      { name:"리조트피 (쉐라톤 와이키키 4박)", note:"바우처에 금액 미기재 — 체크인 시 확인", amt:"확인필요" },
+      { name:"다이아몬드헤드 입장+주차", note:"비거주자 1인당 $5 입장 + 차량 $10 주차 · 사전예약, 카드결제만", amt:"$20 (2인+차량 1대)" },
+      { name:"쿠알로아랜치 승마투어", note:"이미 예약 완료 — 바우처에 금액 미기재", amt:"확인필요" },
+      { name:"오아후 렌터카 or 투어 (11/3·11/4용)", note:"아직 미예약", amt:"확인필요" },
+      { name:"크롬하츠 호놀룰루", note:"Waitwhile 예약 자체는 무료", amt:"$0" },
+      { name:"쇼핑 세금 (크롬하츠 호놀룰루 등)", note:"하와이 GET — 사실상 소비자에게 전가되는 관행", amt:"구매액의 약 4.5~4.7%" },
+      { name:"기념 디너 (11/4)", note:"오션뷰 파인다이닝 2인 — 레스토랑 미확정", amt:"확인필요" },
+    ],
+  },
+
   /* 유진 구글맵 저장 리스트 — 직접 보내준 링크 그대로 연결 */
   savedMaps: [
     { name:"라스베가스 저장 리스트", cls:"y", url:"https://maps.app.goo.gl/Krf9y2weCPX2cJyJ9" },
@@ -428,6 +473,30 @@ const DATA = {
     { name:"호놀룰루 · 음식", cls:"b", url:"https://maps.app.goo.gl/QeiMYSHP5i4Xwyz2A" },
     { name:"호놀룰루 · 쇼핑", cls:"b", url:"https://maps.app.goo.gl/fmTCkdrvdBvpVayUA" },
   ],
+
+  /* 아직 확정 안 한 후보 리스트 — 골라서 itinerary/reservations로 옮기기 */
+  shortlists: {
+    "하와이 스테이크 맛집": [
+      { name:"Wolfgang's Steakhouse (와이키키)", loc:"2301 Kalakaua Ave, Honolulu · 쉐라톤 와이키키에서 도보 5분 내외", price:"$50+/인", desc:"28일 드라이에이징 본인 립아이(22oz) $95, 프라임 립아이 $82, 안심(10oz) $61 — 랍스터·새우 매쉬드포테이토도 시그니처. 격식 있는 스테이크하우스 분위기." },
+      { name:"Hy's Steak House (와이키키)", loc:"2440 Kuhio Ave, Honolulu · 쉐라톤에서 도보 10분 내외", price:"$50+/인", desc:"카이아베(키아베) 장작으로 직화 구워내는 게 시그니처 — USDA 프라임 등급 사용. 파인다이닝 격식, 분위기 있는 기념일 디너에 잘 맞음." },
+      { name:"Wolfgang's Steakhouse (마우이·와일레아)", loc:"더 샵스 앳 와일레아 · 10/31 쇼핑 동선 그대로, 호텔서 차로 15분", price:"가격 미확인", desc:"토마호크·뉴욕 서로인·립아이·안심 등 28일 숙성 Black Angus Prime, 랍스터 맥앤치즈 유명. 매일 17:00~21:30 영업." },
+    ],
+    "라스베가스 클럽": [
+      { name:"Omnia (시저스팰리스)", loc:"벨라지오에서 도보 5분 내외 · 10/27 헬스키친 디너(같은 단지) 후 바로 이어가기 좋음", price:"입장료 변동(확인필요)", desc:"대형 DJ 위주 EDM — 10월에 타이스토·스티브 아오키 라인업이 있다고 하니 정확한 날짜는 Omnia 공식/nocovervegas에서 재확인.\n복장: 남성 칼라 셔츠+구두(반바지·스니커즈·모자 불가), 여성 칵테일 드레스 추천." },
+      { name:"XS (윈/앙코르)", loc:"윈 플라자 — 10/26 크롬하츠 방문 동선과 겹침", price:"사전구매 여성 $35~55+ / 남성 $65~100+", desc:"EDM 메인, 헤드라이너는 보통 새벽 1~1:30시 시작. 여성은 새벽 1시 전 게스트리스트로 무료 입장 가능.\n복장: 업스케일 캐주얼 — 찢어진 청바지·운동화·반바지·스포츠로고 불가." },
+      { name:"Tao (베네시안)", loc:"윈에서 차로 10분 내외", price:"사전 여성 $20 / 남성 $30 (+세금)", desc:"힙합+EDM+Top40 믹스, 목요일 'Worship Thursdays'로 유명. 여성이 많은 그룹이면 남성도 무료입장 가능한 경우 있음.\n복장: 업스케일 캐주얼 — 칼라 셔츠+구두, 스니커즈·반바지 불가." },
+    ],
+    "라스베가스 바·라운지 (옵션)": [
+      { name:"Chandelier Bar (코스모폴리탄)", loc:"벨라지오 바로 옆 — 도보 5분 이내", price:"커버 없음, 음료는 $20 내외", desc:"3개 층으로 된 나무 모양 조명 바 — 클럽처럼 복장규정이 엄격하지 않아 디너 전후로 가볍게 들르기 좋아요." },
+    ],
+    "하와이 포케·로컬푸드 (옵션)": [
+      { name:"Tamura's Fine Wine & Liquors (키헤이)", loc:"91 E Lipoa St, Kihei · 숙소에서 차로 5분 내외", price:"조합 3종 기준 약 $27", desc:"주류상점 안에 있는 포케 코너인데 20~30종을 갖춘 걸로 유명 — 타코·피피카울라·아히 등 조합 가능. 테이크아웃 위주." },
+    ],
+    "하와이 카페·아사이볼 브런치 (옵션)": [
+      { name:"Island Vintage Coffee (더 샵스 앳 와일레아)", loc:"3750 Alanui Dr, Wailea · 10/31 쇼핑 동선 그대로", price:"아사이볼 $14.95~15.95", desc:"오리지널·카카오·리리코이·하우피아 등 아사이볼 종류가 다양 — 쇼핑 중간에 가볍게 먹기 좋음." },
+      { name:"Moke's Bread & Breakfast (카일루아)", loc:"27 Hoolai St, Kailua · 11/4 카일루아 비치 가는 날과 겹침", price:"가격 미확인", desc:"시그니처는 리리코이 팬케이크(리리코이 크림소스), 로코모케(프라임립 로코모코). 로컬들도 웨이팅 서는 곳이라 오픈 직후 추천." },
+    ],
+  },
 
   checklist: {
     "Docs 서류 · 필수": [
@@ -568,77 +637,6 @@ let todayIdx = -1;
   }).join("");
 })();
 
-/* 달력(월간 그리드) — 트립 기간이 걸친 달을 모두 그림 */
-(function(){
-  const pad = n => String(n).padStart(2,'0');
-  const dow = ['일','월','화','수','목','금','토'];
-  const startDate = new Date(DATA.tripStart+"T00:00:00");
-  const endDate = new Date(DATA.tripEnd+"T00:00:00");
-
-  /* 날짜별 정보 맵 (DATA.days는 tripStart부터 하루씩 연속) */
-  const dayMap = {};
-  DATA.days.forEach((d,i)=>{
-    const dt = new Date(startDate); dt.setDate(dt.getDate()+i);
-    dayMap[`${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())}`] = {i, city:d.city, fly:d.fly, title:d.title};
-  });
-
-  function buildMonth(y, m){
-    const first = new Date(y, m, 1);
-    const startOffset = first.getDay();
-    const dim = new Date(y, m+1, 0).getDate();
-    const trailing = (7 - (startOffset+dim) % 7) % 7;
-    let cells = Array.from({length:startOffset}, ()=>'<div class="cal-cell empty"></div>').join("");
-
-    for (let d=1; d<=dim; d++){
-      const key = `${y}-${pad(m+1)}-${pad(d)}`;
-      const info = dayMap[key];
-      let cls = "cal-cell", style = "", inner = `<span class="num">${d}</span>`;
-      if (info){
-        cls += " trip" + (info.i===todayIdx ? " today" : "");
-        const cur = cityColor[cityCls[info.city]];
-        if (info.fly){
-          const prevDt = new Date(y,m,d); prevDt.setDate(prevDt.getDate()-1);
-          const prevInfo = dayMap[`${prevDt.getFullYear()}-${pad(prevDt.getMonth()+1)}-${pad(prevDt.getDate())}`];
-          style = (prevInfo && prevInfo.city!==info.city)
-            ? `background:linear-gradient(135deg, ${cityColor[cityCls[prevInfo.city]]} 32%, ${cur} 68%)`
-            : `background:${cur}`;
-          inner += `<span class="fly-ic">✈</span>`;
-        } else {
-          style = `background:${cur}`;
-        }
-        inner += `<span class="ttl">${info.title}</span>`;
-      }
-      cells += `<div class="${cls}" data-day="${info?info.i:''}" style="${style}">${inner}</div>`;
-    }
-    cells += Array.from({length:trailing}, ()=>'<div class="cal-cell empty"></div>').join("");
-
-    return `<div class="cal-month"><h3>${y}년 ${m+1}월</h3><div class="cal-grid">
-      ${dow.map(w=>`<div class="cal-dow">${w}</div>`).join("")}${cells}
-    </div></div>`;
-  }
-
-  let out = "", cy = startDate.getFullYear(), cm = startDate.getMonth();
-  const ey = endDate.getFullYear(), em = endDate.getMonth();
-  while (cy < ey || (cy===ey && cm <= em)){
-    out += buildMonth(cy, cm);
-    cm++; if (cm>11){ cm=0; cy++; }
-  }
-  const box = $("#calendar-box");
-  box.innerHTML = out + `<div class="cal-legend">
-    <span><span class="dot v" style="background:${cityColor.y}"></span>라스베가스</span>
-    <span><span class="dot v" style="background:${cityColor.p}"></span>마우이</span>
-    <span><span class="dot v" style="background:${cityColor.b}"></span>오아후</span>
-    <span>✈ 이동일 (그라데이션)</span>
-  </div>`;
-
-  box.addEventListener("click", e=>{
-    const cell = e.target.closest(".cal-cell.trip");
-    if (!cell || cell.dataset.day==="") return;
-    const dayEl = document.getElementById("day-"+cell.dataset.day);
-    if (dayEl){ dayEl.classList.add("open"); dayEl.scrollIntoView({behavior:"smooth", block:"start"}); }
-  });
-})();
-
 /* 일정 카드 */
 $("#days").innerHTML = DATA.days.map((d,i)=>`
   <div class="day" id="day-${i}">
@@ -675,9 +673,35 @@ $("#res").innerHTML = Object.entries(DATA.reservations).map(([g,items],gi)=>`
     </div>
   </div>`).join("");
 
+/* 추가 경비 */
+$("#costs-box").innerHTML = Object.entries(DATA.extraCosts).map(([g,items])=>`
+  <div class="cost-group">
+    <h3>${g}</h3>
+    ${items.map(c=>`
+      <div class="cost-row">
+        <div class="cost-name">${c.name}${c.note?`<span class="note">${c.note}</span>`:''}</div>
+        <div class="cost-amt${c.amt==='확인필요'?' unsure':''}">${c.amt||'확인필요'}</div>
+      </div>`).join("")}
+  </div>`).join("");
+
 /* 저장 리스트 링크 */
 $("#saved-maps").innerHTML = DATA.savedMaps.map(m=>`
   <a class="saved-link" href="${m.url}" target="_blank" rel="noopener"><span class="sw ${m.cls}"></span>${m.name} ↗</a>`).join("");
+
+/* 후보 리스트업 */
+$("#shorts-box").innerHTML = Object.entries(DATA.shortlists).map(([g,items])=>`
+  <div class="short-group">
+    <h3>${g}</h3>
+    <div class="short-grid">
+      ${items.map(s=>`
+        <div class="short-card">
+          <div class="nm">${s.name}</div>
+          <div class="loc">${s.loc}</div>
+          <span class="price">${s.price}</span>
+          <div class="desc">${s.desc}</div>
+        </div>`).join("")}
+    </div>
+  </div>`).join("");
 
 /* 지도 */
 $("#maps-box").innerHTML = DATA.maps.map(m=>`
